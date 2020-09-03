@@ -1,0 +1,21 @@
+#开发环境
+spring:
+  #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: 130825
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+#日志配置
+logging:
+  level:
+    root: info
+    com.ye: debug
+  file:
+    name: log/blog-dev.log
+

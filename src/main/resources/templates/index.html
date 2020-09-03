@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客首页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/me.css">
+</head>
+<body>
+
+    <!--导航header-->
+    <nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+        <div class="ui container">
+            <div class="ui inverted secondary stackable menu">
+                <h2 class="ui teal header item">iBlog</h2>
+                <a href="#" class="m-item item m-mobile-hide"><i class="tiny home icon"></i>首页</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="tiny idea icon"></i>分类</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="tiny tags icon"></i>标签</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="tiny clone icon"></i>归档</a>
+                <a href="#" class="m-item item m-mobile-hide"><i class="tiny info icon"></i>&nbsp;关于我</a>
+                <div class="m-item right item m-mobile-hide">
+                    <div class="ui icon inverted transparent input">
+                        <input type="text" placeholder="Search...">
+                        <i class="search link icon"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+            <i class="sidebar icon"></i>
+        </a>
+    </nav>
+
+    <!--中间内容-->
+    <div class="m-container m-padded-tb-big">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <!--左部博客列表-->
+                <div class="eleven wide column">
+                    <!--top-->
+                    <div class="ui top attached segment">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <h3 class="ui teal header">博客</h3>
+                            </div>
+                            <div class="right aligned column">
+                                共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${page.totalElements}">15</h2>篇
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!--content-->
+                    <div class="ui attached segment">
+                        <div class="ui segment" th:each="blog : ${page.content}">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header"><a href="" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">SpringBoot启动原理</a></h3>
+                                    <p class="m-text" th:text="|${blog.description}......|">SpringBoot通过默认配置了很多框架的使用方式帮我们大大简化了项目初始搭建以及开发过程。本博客的目的就是一步步分析SpringBoot的启动过程，分析SpringBoot是如何帮我们简化这个过程的。</p>
+                                    <div class="ui grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item middle aligned">
+                                                    <img src="https://picsum.photos/id/1028/100" th:src="@{${blog.user.avatar}}" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header" th:text="${blog.user.nickname}">叶伟伟</a></div>
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}"> 2020 07-29</span>
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="eye icon"></i> <span th:text="${blog.views}">250</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned middle aligned five wide column">
+                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}">学习笔记</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="five wide column middle aligned">
+                                    <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+                                        <img src="https://picsum.photos/id/1033/800/450" th:src="@{${blog.firstPicture}}" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--/*-->
+                        <div class="ui segment">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header">SpringBoot启动原理</h3>
+                                    <p class="m-text">SpringBoot通过默认配置了很多框架的使用方式帮我们大大简化了项目初始搭建以及开发过程。本博客的目的就是一步步分析SpringBoot的启动过程，分析SpringBoot是如何帮我们简化这个过程的。</p>
+                                    <div class="ui grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item middle aligned">
+                                                    <img src="https://picsum.photos/id/1028/100" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">叶伟伟</a></div>
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="calendar icon"></i> 2020 07-29
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="eye icon"></i> 250
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned middle aligned five wide column">
+                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">SpringBoot</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="five wide column middle aligned">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/1033/800/450" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segment">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header">SpringBoot启动原理</h3>
+                                    <p class="m-text">SpringBoot通过默认配置了很多框架的使用方式帮我们大大简化了项目初始搭建以及开发过程。本博客的目的就是一步步分析SpringBoot的启动过程，分析SpringBoot是如何帮我们简化这个过程的。</p>
+                                    <div class="ui grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item middle aligned">
+                                                    <img src="https://picsum.photos/id/1028/100" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">叶伟伟</a></div>
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="calendar icon"></i> 2020 07-29
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="eye icon"></i> 250
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned middle aligned five wide column">
+                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">SpringBoot</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="five wide column middle aligned">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/1033/800/450" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segment">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header">SpringBoot启动原理</h3>
+                                    <p class="m-text">SpringBoot通过默认配置了很多框架的使用方式帮我们大大简化了项目初始搭建以及开发过程。本博客的目的就是一步步分析SpringBoot的启动过程，分析SpringBoot是如何帮我们简化这个过程的。</p>
+                                    <div class="ui grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item middle aligned">
+                                                    <img src="https://picsum.photos/id/1028/100" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">叶伟伟</a></div>
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="calendar icon"></i> 2020 07-29
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="eye icon"></i> 250
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned middle aligned five wide column">
+                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">SpringBoot</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="five wide column middle aligned">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/1033/800/450" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segment">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header">SpringBoot启动原理</h3>
+                                    <p class="m-text">SpringBoot通过默认配置了很多框架的使用方式帮我们大大简化了项目初始搭建以及开发过程。本博客的目的就是一步步分析SpringBoot的启动过程，分析SpringBoot是如何帮我们简化这个过程的。</p>
+                                    <div class="ui grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item middle aligned">
+                                                    <img src="https://picsum.photos/id/1028/100" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">叶伟伟</a></div>
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="calendar icon"></i> 2020 07-29
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="eye icon"></i> 250
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned middle aligned five wide column">
+                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">SpringBoot</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="five wide column middle aligned">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/1033/800/450" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segment">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header">SpringBoot启动原理</h3>
+                                    <p class="m-text">SpringBoot通过默认配置了很多框架的使用方式帮我们大大简化了项目初始搭建以及开发过程。本博客的目的就是一步步分析SpringBoot的启动过程，分析SpringBoot是如何帮我们简化这个过程的。</p>
+                                    <div class="ui grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item middle aligned">
+                                                    <img src="https://picsum.photos/id/1028/100" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">叶伟伟</a></div>
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="calendar icon"></i> 2020 07-29
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="eye icon"></i> 250
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned middle aligned five wide column">
+                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">SpringBoot</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="five wide column middle aligned">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/1033/800/450" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segment">
+                            <div class="ui mobile reversed stackable grid">
+                                <div class="eleven wide column">
+                                    <h3 class="ui header">SpringBoot启动原理</h3>
+                                    <p class="m-text">SpringBoot通过默认配置了很多框架的使用方式帮我们大大简化了项目初始搭建以及开发过程。本博客的目的就是一步步分析SpringBoot的启动过程，分析SpringBoot是如何帮我们简化这个过程的。</p>
+                                    <div class="ui grid">
+                                        <div class="eleven wide column">
+                                            <div class="ui mini horizontal link list">
+                                                <div class="item middle aligned">
+                                                    <img src="https://picsum.photos/id/1028/100" alt="" class="ui avatar image">
+                                                    <div class="content"><a href="#" class="header">叶伟伟</a></div>
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="calendar icon"></i> 2020 07-29
+                                                </div>
+                                                <div class="item middle aligned">
+                                                    <i class="eye icon"></i> 250
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="right aligned middle aligned five wide column">
+                                            <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin">SpringBoot</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="five wide column middle aligned">
+                                    <a href="#" target="_blank">
+                                        <img src="https://picsum.photos/id/1033/800/450" alt="" class="ui rounded image">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!--*/-->
+                    </div>
+                    
+                    <!--bottom-->
+                    <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+                        <div class="ui middle aligned two column grid">
+                            <div class="column">
+                                <a href="#" th:href="@{/(page = ${page.number} - 1)}" th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
+                            </div>
+                            <div class="right aligned column">
+                                <a href="#" th:href="@{/(page = ${page.number} + 1)}" th:unless="${page.last}" class="ui mini teal basic button">下一页</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--右部的Top-->
+                <div class="five wide column">
+
+                    <!--分类-->
+                    <div class="ui segments">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class="idea icon"></i>分类
+                                </div>
+                                <div class="right aligned column">
+                                    <a href="#" th:href="@{/types/-1}" target="_blank">more<i class="angle double right icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui teal segment">
+                            <div class="ui fluid vertical menu">
+                                <a href="" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item" th:each="type : ${types}">
+                                    <span th:text="${type.name}">学习笔记</span>
+                                    <div class="ui teal basic label" th:text="${#arrays.length(type.blogs)}">18</div>
+                                </a>
+                                <!--/*-->
+                                <a href="" class="item">
+                                    项目总结
+                                    <div class="ui teal basic label">18</div>
+                                </a>
+                                <a href="" class="item">
+                                    思考感悟
+                                    <div class="ui teal basic label">18</div>
+                                </a>
+                                <a href="" class="item">
+                                    错误日志
+                                    <div class="ui teal basic label">18</div>
+                                </a>
+                                <a href="" class="item">
+                                    数据结构与算法
+                                    <div class="ui teal basic label">18</div>
+                                </a>
+                                <a href="" class="item">
+                                    优秀文章转载
+                                    <div class="ui teal basic label">18</div>
+                                </a>
+                                <!--*/-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--标签-->
+                    <div class="ui segments m-margin-top-large">
+                        <div class="ui secondary segment">
+                            <div class="ui two column grid">
+                                <div class="column">
+                                    <i class="tags icon"></i>标签
+                                </div>
+                                <div class="right aligned column">
+                                    <a href="#" th:href="@{/tags/-1}" target="_blank">more<i class="angle double right icon"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui teal segment">
+                            <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
+                                <span th:text="${tag.name}">Redis</span>
+                                <div class="detail" th:text="${#arrays.length(tag.blogs)}">1</div>
+                            </a>
+                            <!--/*-->
+                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
+                                Css
+                                <div class="detail">1</div>
+                            </a>
+                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
+                                HTML
+                                <div class="detail">1</div>
+                            </a>
+                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
+                                JavaScript
+                                <div class="detail">1</div>
+                            </a>
+                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
+                                Spring
+                                <div class="detail">1</div>
+                            </a>
+                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
+                                Mybatis
+                                <div class="detail">1</div>
+                            </a>
+                            <a href="#" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny">
+                                SpringMVC
+                                <div class="detail">1</div>
+                            </a>
+                            <!--*/-->
+                        </div>
+                    </div>
+
+                    <!--最新推荐-->
+                    <div class="ui segments m-margin-top-large">
+                        <div class="ui secondary segment">
+                            <i class="bookmark icon"></i>最新推荐
+                        </div>
+                        <div class="ui teal segment">
+                            <div class="ui segment" th:each="blog : ${recommendBlogs}">
+                                <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black m-text-thin" th:text="${blog.title}">SpringBoot启动原理</a>
+                            </div>
+                            <!--/*-->
+                            <div class="ui segment">
+                                <a href="#" target="_blank" class="m-black m-text-thin">SpringBoot启动原理</a>
+                            </div>
+                            <div class="ui segment">
+                                <a href="#" target="_blank" class="m-black m-text-thin">SpringBoot启动原理</a>
+                            </div>
+                            <div class="ui segment">
+                                <a href="#" target="_blank" class="m-black m-text-thin">SpringBoot启动原理</a>
+                            </div>
+                            <div class="ui segment">
+                                <a href="#" target="_blank" class="m-black m-text-thin">SpringBoot启动原理</a>
+                            </div>
+                            <!--*/-->
+                        </div>
+                    </div>
+
+                    <!--二维码-->
+                    <h4 class="ui horizontal divider header m-margin-top-large">扫码关注我</h4>
+                    <div class="ui centered card"  style="width: 140px">
+                        <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" alt="" class="ui rounded image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+
+    <!--底部footer-->
+    <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+        <div class="ui center aligned container">
+            <div class="ui inverted divided stackable grid">
+                <div class="three wide column">
+                    <div class="ui inverted link list">
+                       <div class="item">
+                           <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" class="ui rounded image" style="width: 110px">
+                       </div>
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <h4 class="ui inverted header m-text-thin m-text-spaced">最新博客</h4>
+                    <div class="ui inverted link list">
+                        <a href="#" class="item">SpringBoot</a>
+                        <a href="#" class="item">Redis</a>
+                        <a href="#" class="item">Mysql</a>
+                    </div>
+                </div>
+                <div class="four wide column">
+                    <h4 class="ui inverted header m-text-thin m-text-spaced">联系我</h4>
+                    <div class="ui inverted link list">
+                        <span class="m-text-thin m-opacity-mini">Email:ye13770663565@163.com</span>
+                        <span class="m-text-thin m-opacity-mini">QQ:2013722607</span>
+                    </div>
+                </div>
+                <div class="five wide column">
+                    <h4 class="ui inverted header m-text-thin m-text-spaced">iBlog</h4>
+                    <p class="m-text-thin m-text-spaced m-text-lined m-opacity-mini">这是我的个人博客，会分享日常工作学习中的相关的任何内容，希望对你有所帮助</p>
+                </div>
+            </div>
+            <div class="ui inverted section divider"></div>
+            <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2019 - 2020 iBlog Designed by raging snail</p>
+        </div>
+    </footer>
+
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.10/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item ').toggleClass('m-mobile-hide');
+    });
+</script>
+</body>
+</html>
