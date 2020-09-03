@@ -1,2 +1,2 @@
 # blog
-基于springboot的个人博客系统
+a personal blog system based on springboot
