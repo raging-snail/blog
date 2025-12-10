@@ -3,22 +3,21 @@ import { readFileSync } from 'fs';
 
 export type FontOptions = {
   name: string;
-  data: ArrayBuffer;
+  data: Uint8Array;
   weight: FontWeight | undefined;
   style: FontStyle | undefined;
 };
 
 // 加载本地字体
-async function loadLocalFont(fontPath: string): Promise<ArrayBuffer> {
+async function loadLocalFont(fontPath: string): Promise<Uint8Array> {
   try {
-    const fontData = readFileSync(fontPath);
-    return fontData.buffer;
+    return readFileSync(fontPath);
   } catch (error) {
     throw new Error(`Failed to load local font`);
   }
 }
 
-async function loadLocalFonts(): Promise<Array<{ name: string; data: ArrayBuffer; weight: number; style: string }>> {
+async function loadLocalFonts(): Promise<Array<{ name: string; data: Uint8Array; weight: number; style: string }>> {
   const fontsConfig = [
     {
       name: "MapleMono-NF-CN-Regular", 
