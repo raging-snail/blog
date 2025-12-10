@@ -25,13 +25,19 @@ const {
 } = Astro.props;
 
 /* ========== Formatted Datetime ========== */
+// 获取时区设置
+const tz = postTimezone || SITE.timezone;
+const formatPattern = "YYYY-MM-DD HH:mm";
+
+// 处理发布时间
+const pubDateObj = dayjs(pubDatetime).tz(tz);
+const pubDateStr = pubDateObj.format(formatPattern);
+
+// 处理更新时间
+// 只有当 modDatetime 存在且晚于 pubDatetime 时才视为有效更新
 const isModified = modDatetime && modDatetime > pubDatetime;
-
-const datetime = dayjs(isModified ? modDatetime : pubDatetime).tz(
-  postTimezone || SITE.timezone
-);
-
-const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
+const modDateObj = isModified ? dayjs(modDatetime).tz(tz) : null;
+const modDateStr = modDateObj ? modDateObj.format(formatPattern) : null;
 ---
 
 <div class:list={["flex items-center gap-x-2 opacity-80", className]}>
@@ -41,15 +47,19 @@ const date = datetime.format("D MMM, YYYY"); // e.g., '22 Mar, 2025'
       { "scale-90": size === "sm" },
     ]}
   />
-  {
-    isModified && (
-      <span class:list={["text-sm", { "sm:text-base": size === "lg" }]}>
-        Updated:
-      </span>
-    )
-  }
-  <time
-    class:list={["text-sm", { "sm:text-base": size === "lg" }]}
-    datetime={datetime.toISOString()}>{date}</time
-  >
+
+  <span class:list={["flex items-center text-sm", { "sm:text-base": size === "lg" }]}>
+    <span class="mr-1">Published:</span>
+    <time datetime={pubDateObj.toISOString()}>{pubDateStr}</time>
+    
+    {
+      isModified && modDateObj && (
+        <>
+          <span class="mx-2">|</span>
+          <span class="mr-1">Updated:</span>
+          <time datetime={modDateObj.toISOString()}>{modDateStr}</time>
+        </>
+      )
+    }
+  </span>
 </div>

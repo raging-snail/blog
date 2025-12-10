@@ -4,7 +4,7 @@
   "version": "5.5.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro check && astro build && pagefind --site dist && cp -r dist/pagefind public/",
+    "build": "astro check && astro build && pagefind --site dist && shx cp -r dist/pagefind public/ && node scripts/compress.mjs",
     "preview": "astro preview",
     "sync": "astro sync",
     "astro": "astro",
@@ -37,10 +37,13 @@
     "eslint": "^9.39.2",
     "eslint-plugin-astro": "^1.5.0",
     "globals": "^16.5.0",
+    "globby": "^16.0.0",
     "pagefind": "^1.4.0",
     "prettier": "^3.7.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "shx": "^0.4.0",
+    "subset-font": "^2.4.0",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.51.0"
   }
