@@ -6,6 +6,7 @@ import Footer from "@/components/Footer.astro";
 import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
+import ReadingTime from "@/components/ReadingTime.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
 import BackButton from "@/components/BackButton.astro";
 import BackToTopButton from "@/components/BackToTopButton.astro";
@@ -28,6 +29,7 @@ const {
   description,
   ogImage: initOgImage,
   canonicalURL,
+  readingTime,
   pubDatetime,
   modDatetime,
   timezone,
@@ -65,6 +67,7 @@ const layoutProps = {
   canonicalURL,
   ogImage,
   scrollSmooth: true,
+  readingTime
 };
 
 /* ========== Prev/Next Posts ========== */
@@ -109,6 +112,9 @@ const nextPost =
         ]}>|</span
       >
       <EditPost {hideEditPost} {post} class="max-sm:hidden" />
+    </div>
+    <div class="my-2 flex items-center gap-2">
+      <ReadingTime {readingTime} size="lg" />
     </div>
     <article
       id="article"
