@@ -3,10 +3,20 @@
 
 @font-face {
   font-family: "MapleMono";
-  src: 
+  src:
     url("/fonts/MapleMono-NF-CN-Regular.woff2") format("woff2"),
     url("/fonts/MapleMono-NF-CN-Regular.ttf") format("truetype");
   font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "MapleMono";
+  src:
+    url("/fonts/MapleMono-NF-CN-Bold.woff2") format("woff2"),
+    url("/fonts/MapleMono-NF-CN-Bold.ttf") format("truetype");
+  font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
@@ -34,7 +44,7 @@ html[data-theme="light"] {
   --accent: rgb(211, 0, 106);
   --muted: rgb(241, 186, 212);
   --border: rgb(227, 169, 198);
-  --card: rgb(99,102,241);
+  --card: rgb(99, 102, 241);
 }
 
 html[data-theme="dark"] {
@@ -43,11 +53,11 @@ html[data-theme="dark"] {
   --accent: rgb(255, 107, 1);
   --muted: rgb(52, 63, 96);
   --border: rgb(171, 75, 8);
-  --card: rgb(99,102,241);
+  --card: rgb(99, 102, 241);
 }
 
 @theme inline {
-  --font-app: var(--font-google-sans-code);
+  --font-app: "MapleMono", monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-accent: var(--accent);
@@ -64,16 +74,20 @@ html[data-theme="dark"] {
     scrollbar-width: auto;
     scrollbar-color: var(--color-muted) transparent;
   }
+
   html {
     @apply overflow-y-scroll scroll-smooth;
   }
+
   body {
     @apply flex min-h-svh flex-col bg-background font-app text-foreground selection:bg-accent/75 selection:text-background;
   }
+
   a,
   button {
     @apply outline-offset-1 outline-accent focus-visible:no-underline focus-visible:outline-2 focus-visible:outline-dashed;
   }
+
   button:not(:disabled),
   [role="button"]:not(:disabled) {
     cursor: pointer;
