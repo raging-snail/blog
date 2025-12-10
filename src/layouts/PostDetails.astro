@@ -15,6 +15,7 @@ import { slugifyStr } from "@/utils/slugify";
 import IconChevronLeft from "@/assets/icons/IconChevronLeft.svg";
 import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
+import { Comments } from "@/components/Comment";
 
 type Props = {
   post: CollectionEntry<"blog">;
@@ -165,6 +166,8 @@ const nextPost =
         )
       }
     </div>
+
+    <Comments client:only />
   </main>
   <Footer />
 </Layout>

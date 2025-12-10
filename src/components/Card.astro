@@ -11,12 +11,8 @@ type Props = {
 
 const { variant: Heading = "h2", id, data, filePath } = Astro.props;
 
-const { title, description, pubDatetime, modDatetime, timezone, readingTime } = data;
-
-const headerProps = {
-  style: { viewTransitionName: slugifyStr(title) },
-  class: "text-lg font-medium decoration-dashed hover:underline",
-};
+const { title, description, pubDatetime, modDatetime, timezone, readingTime } =
+  data;
 ---
 
 <li class="my-6">
