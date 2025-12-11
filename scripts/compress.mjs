@@ -2,6 +2,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import { globby } from 'globby';
 import subsetFont from 'subset-font';
+import he from 'he';
 
 
 
@@ -53,9 +54,14 @@ async function main() {
 
   for (const file of files) {
     const content = await fs.readFile(file, 'utf-8');
-    const cleanContent = content
+    // 先去掉 HTML 标签
+    let cleanContent = content
       .replace(/<[^>]+>/g, '')
       .replace(/https?:\/\/[^\s]+/g, '');
+
+    // 解码 HTML 实体
+    cleanContent = he.decode(cleanContent);
+    // 累加文本内容
     allText += cleanContent;
   }
 
