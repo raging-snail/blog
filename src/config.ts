@@ -1,9 +1,9 @@
 export const SITE = {
   website: "https://blog.lavieio.com/", // replace this with your deployed domain
-  author: "Sat Naing",
+  author: "lavie",
   profile: "https://satnaing.dev/",
   desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
-  title: "lavie の blog",
+  title: "lavie blog",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,
@@ -13,7 +13,7 @@ export const SITE = {
   showBackButton: true, // show back button in post detail
   editPost: {
     enabled: false,
-    url: "https://github.com/raging-snail/astro-paper/edit/main/src/content/blog",
+    url: "https://github.com/raging-snail/iblog/edit/main/src/content/blog",
     text: "Suggest Changes"
   },
   dynamicOgImage: true,

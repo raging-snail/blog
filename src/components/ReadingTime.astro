@@ -1,5 +1,7 @@
 ---
 import { SITE } from "@/config";
+import IconCalendar from "@/assets/icons/IconCalendar.svg";
+import IconHash from "@/assets/icons/IconHash.svg";
 
 export interface Props {
   class?: string;
@@ -13,23 +15,22 @@ const { readingTime, class: className = "", size = "sm"} = Astro.props;
 
 {
   SITE.showBackButton && (
-    <div class:list={`flex items-center space-x-2 opacity-80 ${className}`.trim()}>
+    <div class:list={["flex items-center gap-x-2 opacity-80", className]}>
         <svg viewBox="0 0 1024 1024" 
           xmlns="http://www.w3.org/2000/svg" 
           class:list={[
-            size === "sm" ? "scale-90" : "scale-100",
-            "inline-block h-6 w-6 min-w-5.5 fill-skin-base"
+            size === "sm" ? "scale-80" : "scale-90",
+            "inline-block size-6 min-w-5.5"
           ]}
           aria-hidden="true"
         >
           <path d="M511.913993 63.989249c-247.012263 0-447.924744 200.912481-447.924744 447.924744s200.912481 447.924744 447.924744 447.924744 447.924744-200.912481 447.924744-447.924744S758.926256 63.989249 511.913993 63.989249zM511.913993 895.677474c-211.577356 0-383.763481-172.186125-383.763481-383.763481 0-211.577356 172.014111-383.763481 383.763481-383.763481s383.763481 172.014111 383.763481 383.763481S723.491349 895.677474 511.913993 895.677474z" fill="#575B66" p-id="4413"></path>
           <path d="M672.05913 511.913993l-159.973123 0L512.086007 288.123635c0-17.717453-14.277171-32.166639-31.994625-32.166639-17.717453 0-31.994625 14.449185-31.994625 32.166639l0 255.956996c0 17.717453 14.277171 31.994625 31.994625 31.994625l191.967747 0c17.717453 0 32.166639-14.277171 32.166639-31.994625C704.053754 526.191164 689.604569 511.913993 672.05913 511.913993z" fill="#575B66" p-id="4414"></path>
         </svg>
-        <span class:list={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
-          Estimated reading time:
-        </span>
-        <span class:list={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
-           {readingTime}
+
+        <span class:list={["flex items-center text-sm", { "sm:text-base": size === "lg" }]}>
+          <span class="mr-1">Estimated reading time:</span>
+          <span class="mr-1">{readingTime}</span>
         </span>
     </div>
   )
