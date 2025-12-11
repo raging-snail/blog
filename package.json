@@ -26,6 +26,7 @@
     "dayjs": "^1.11.13",
     "lodash.kebabcase": "^4.1.1",
     "mdast-util-to-string": "^4.0.0",
+    "medium-zoom": "^1.1.0",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "reading-time": "^1.5.0",

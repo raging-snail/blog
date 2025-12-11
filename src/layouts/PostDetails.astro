@@ -179,6 +179,18 @@ const nextPost =
   <Footer />
 </Layout>
 
+<script>
+  import mediumZoom from 'medium-zoom';
+
+  // 初始化：选择所有的 img 标签
+  // 你可以指定特定的类名，或者排除特定的图片
+  mediumZoom('img', {
+    margin: 24,
+    background: '#000000',
+    scrollOffset: 0,
+  });
+</script>
+
 <script is:inline data-astro-rerun>
   /** Create a progress indicator
    *  at the top */
