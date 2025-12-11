@@ -21,6 +21,12 @@ let themeValue = getPreferTheme();
 function setPreference() {
   localStorage.setItem("theme", themeValue);
   reflectPreference();
+  dispatchThemeChangeEvent();
+}
+
+function dispatchThemeChangeEvent() {
+  const themeChangeEvent = new Event("theme-change");
+  window.dispatchEvent(themeChangeEvent);
 }
 
 function reflectPreference() {
