@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { PUBLIC_REMARK_URL } from "astro:env/client";
 
 declare global {
 	// Declare the global types for REMARK42 and remark_config so they can be used in this module.
@@ -9,7 +10,7 @@ declare global {
 }
 
 // Get the host from the environment variables.
-const host = import.meta.env.PUBLIC_REMARK_URL
+const host = PUBLIC_REMARK_URL
 const siteId = "remark";
 
 // Function to get the current URL without the trailing slash
