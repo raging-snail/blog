@@ -1,7 +1,5 @@
 ---
 import { SITE } from "@/config";
-import IconCalendar from "@/assets/icons/IconCalendar.svg";
-import IconHash from "@/assets/icons/IconHash.svg";
 
 export interface Props {
   class?: string;
@@ -10,7 +8,6 @@ export interface Props {
 }
 
 const { readingTime, class: className = "", size = "sm"} = Astro.props;
-// const readingTime = post.data.readingTime || "";
 ---
 
 {
