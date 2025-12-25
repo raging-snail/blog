@@ -1,7 +1,7 @@
 ---
 author: lavie
 pubDatetime: 2024-11-27T05:14:05Z
-modDatetime: 2025-11-14T02:50:58Z
+modDatetime: 2025-12-25T03:23:39Z
 title: InnoDB引擎实现MVCC
 featured: true
 draft: false
@@ -12,8 +12,6 @@ description: InnoDB引擎如何实现MVCC
 ---
 
  Mysql使用InnoDb引擎时通过MVCC来实现数据的一致性和隔离性。这篇文章主要介绍了MVCC的原理，Read View结构和一致性算法。
-
-## Table of contents
 
 ## MVCC多版本并发控制 (Multi-Version Concurrency Control)
 

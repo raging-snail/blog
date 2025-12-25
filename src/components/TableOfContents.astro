@@ -1,0 +1,336 @@
+---
+import type { MarkdownHeading } from "astro";
+import TableOfContentsHeading from "./TableOfContentsHeading.astro";
+
+// Define the nested heading type
+interface TocItem extends MarkdownHeading {
+  subheadings: TocItem[];
+}
+
+interface Props {
+  headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+const toc = buildToc(headings);
+
+function buildToc(headings: MarkdownHeading[]) {
+  const toc: TocItem[] = [];
+  const parentHeadings = new Map();
+  headings.forEach(h => {
+    const heading = { ...h, subheadings: [] };
+    parentHeadings.set(heading.depth, heading);
+    // Change 2 to 1 if your markdown includes your <h1>
+    if (heading.depth === 2) {
+      toc.push(heading);
+    } else {
+      parentHeadings.get(heading.depth - 1).subheadings.push(heading);
+    }
+  });
+  return toc;
+}
+---
+
+<nav class="toc">
+  <ul>
+    {toc.map(heading => <TableOfContentsHeading heading={heading} />)}
+  </ul>
+  <svg class="toc-progress" xmlns="http://www.w3.org/2000/svg">
+    <path
+      class="toc-marker"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-dasharray="1 0 0 1000"
+      stroke-dashoffset="1"
+      stroke-linecap="round"
+      stroke-linejoin="round"></path>
+  </svg>
+</nav>
+
+<style>
+  .toc-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+
+  .toc {
+    display: block;
+    position: sticky;
+    top: 5rem;
+    padding-left: 1rem;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .toc::-webkit-scrollbar {
+    display: none;
+  }
+
+  .toc ul {
+    list-style-type: none;
+    padding-left: 0;
+    overflow-wrap: break-word; /* Ensure long words/text wrap */
+  }
+
+  /* Indent nested lists */
+  .toc ul ul {
+    padding-left: 1rem;
+  }
+
+  .toc a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 0.35rem 1rem 0.35rem 1.25rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: all 0.2s ease-in-out;
+    opacity: 0.5;
+    border-radius: 0.25rem;
+  }
+
+  .toc a:hover {
+    opacity: 0.8;
+  }
+
+  .toc a.active {
+    opacity: 1;
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .toc-marker {
+    transition: stroke-dasharray 0.3s ease;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const linkStarts = new WeakMap();
+    const linkEnds = new WeakMap();
+
+    // Debounce resize observer to prevent thrashing
+    let resizeTimeout: ReturnType<typeof setTimeout>;
+    const observer = new ResizeObserver(() => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        drawPath();
+        updatePath();
+      }, 100);
+    });
+
+    // Wait for fonts to load before first draw to ensure measurements are correct
+    document.fonts.ready.then(() => {
+      const tocNav = document.querySelector("nav.toc");
+      if (tocNav) {
+        // Add a small delay to allow layout to settle (images etc)
+        setTimeout(() => {
+          drawPath();
+          updatePath();
+          // Fade in the marker after first draw
+          const path = document.querySelector(
+            "path.toc-marker"
+          ) as SVGPathElement | null;
+          if (path) path.style.opacity = "1";
+
+          observer.observe(tocNav);
+        }, 150);
+      }
+    });
+
+    addScrollListener();
+
+    function addScrollListener() {
+      const headings = Array.from(
+        document.querySelectorAll(
+          "article h2, article h3, article h4, article h5, article h6"
+        )
+      ) as HTMLElement[];
+
+      // Initial update
+      // Also delay this slightly to sync with path
+      setTimeout(() => updateActiveHeading(headings), 150);
+
+      let ticking = false;
+      window.addEventListener("scroll", () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            updateActiveHeading(headings);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      });
+    }
+
+    function updateActiveHeading(headings: HTMLElement[]) {
+      // Determine which headings are currently visible
+      const activeHeadings: HTMLElement[] = [];
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const offset = 100; // Sticky header offset
+      const viewportTop = scrollY + offset;
+      const viewportBottom = scrollY + viewportHeight;
+
+      for (let i = 0; i < headings.length; i++) {
+        const heading = headings[i];
+        const nextHeading = headings[i + 1];
+
+        const start = heading.offsetTop;
+        const end = nextHeading
+          ? nextHeading.offsetTop
+          : document.body.scrollHeight;
+
+        if (end > viewportTop && start < viewportBottom) {
+          activeHeadings.push(heading);
+        }
+      }
+
+      if (activeHeadings.length === 0 && headings.length > 0) {
+        let lastAbove = null;
+        for (const h of headings) {
+          if (h.offsetTop < viewportTop) {
+            lastAbove = h;
+          } else {
+            break;
+          }
+        }
+        if (lastAbove) {
+          activeHeadings.push(lastAbove);
+        }
+      }
+
+      document.querySelectorAll("nav.toc a").forEach(link => {
+        link.classList.remove("active");
+      });
+
+      activeHeadings.forEach(activeHeading => {
+        const id = activeHeading.getAttribute("id");
+        const link = document.querySelector(
+          `nav.toc li a[href="#${id}"]`
+        ) as HTMLElement; // Cast to HTMLElement
+        if (link) {
+          link.classList.add("active");
+
+          // Auto-scroll logic: Keep active link in view
+          const tocNav = document.querySelector("nav.toc") as HTMLElement;
+          if (tocNav) {
+            const linkRect = link.getBoundingClientRect();
+            const navRect = tocNav.getBoundingClientRect();
+            if (
+              linkRect.top < navRect.top ||
+              linkRect.bottom > navRect.bottom
+            ) {
+              link.scrollIntoView({ block: "nearest", behavior: "smooth" });
+            }
+          }
+        }
+      });
+
+      updatePath();
+    }
+
+    function drawPath() {
+      const path = document.querySelector(
+        "path.toc-marker"
+      ) as SVGPathElement | null;
+      const svg = document.querySelector(
+        "svg.toc-progress"
+      ) as HTMLElement | null;
+      const tocNav = document.querySelector("nav.toc") as HTMLElement | null;
+
+      const links = Array.from(
+        document.querySelectorAll("nav.toc a")
+      ) as HTMLElement[];
+      if (!links.length || !path || !svg || !tocNav) return;
+
+      // Ensure SVG covers the full scrollable height so the line can reach the bottom
+      svg.style.height = `${tocNav.scrollHeight}px`;
+
+      let pathData: (string | number)[] = [];
+      let currentLength = 0;
+      let lastX = 0;
+      let lastY = 0;
+
+      links.forEach((link, i) => {
+        // Shift the line 10px to the left of the link's box for visual separation
+        const x = link.offsetLeft - 10;
+        const y = link.offsetTop;
+        const height = link.offsetHeight;
+
+        if (i === 0) {
+          pathData.push("M", x, y);
+          linkStarts.set(link, 0);
+          pathData.push("L", x, y + height);
+          currentLength += height;
+        } else {
+          linkStarts.set(link, currentLength);
+
+          if (lastX === x) {
+            pathData.push("L", x, y);
+            currentLength += Math.abs(y - lastY);
+          } else if (x < lastX) {
+            pathData.push("L", x, lastY);
+            currentLength += Math.abs(lastX - x);
+            pathData.push("L", x, y);
+            currentLength += Math.abs(y - lastY);
+          } else {
+            pathData.push("L", lastX, y);
+            currentLength += Math.abs(y - lastY);
+            pathData.push("L", x, y);
+            currentLength += Math.abs(x - lastX);
+          }
+          pathData.push("L", x, y + height);
+          currentLength += height;
+        }
+
+        linkEnds.set(link, currentLength);
+        lastX = x;
+        lastY = y + height;
+      });
+
+      path.setAttribute("d", pathData.join(" "));
+    }
+
+    function updatePath() {
+      const path = document.querySelector(
+        "path.toc-marker"
+      ) as SVGPathElement | null;
+      if (!path) return;
+      const pathLength = path.getTotalLength();
+
+      const activeLinks = document.querySelectorAll("nav.toc a.active");
+
+      if (activeLinks.length === 0) {
+        path.style.display = "none";
+        return;
+      }
+
+      path.style.display = "inline";
+
+      let linkStart = Number.MAX_VALUE;
+      let linkEnd = 0;
+
+      activeLinks.forEach(link => {
+        const start = linkStarts.get(link);
+        const end = linkEnds.get(link);
+        if (start !== undefined && start < linkStart) linkStart = start;
+        if (end !== undefined && end > linkEnd) linkEnd = end;
+      });
+
+      path.setAttribute(
+        "stroke-dasharray",
+        `1 ${linkStart} ${linkEnd - linkStart} ${pathLength}`
+      );
+    }
+  });
+</script>

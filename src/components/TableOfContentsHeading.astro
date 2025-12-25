@@ -1,0 +1,29 @@
+---
+import { type MarkdownHeading } from "astro";
+
+// Define the nested heading structure locally since it's recursive
+export interface TocItem extends MarkdownHeading {
+  subheadings: TocItem[];
+}
+
+interface Props {
+  heading: TocItem;
+}
+
+const { heading } = Astro.props;
+---
+
+<li>
+  <a href={"#" + heading.slug}>
+    {heading.text}
+  </a>
+  {
+    heading.subheadings.length > 0 && (
+      <ul class="mt-1 ml-4">
+        {heading.subheadings.map(subheading => (
+          <Astro.self heading={subheading} />
+        ))}
+      </ul>
+    )
+  }
+</li>

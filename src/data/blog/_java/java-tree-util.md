@@ -1,7 +1,7 @@
 ---
 author: lavie
 pubDatetime: 2025-07-28T08:25:54Z
-modDatetime: 
+modDatetime: 2025-12-25T03:23:37Z
 title: Java树形工具类TreeUtil
 featured: false
 draft: false
@@ -12,8 +12,6 @@ description: 构造树形结构的工具类，还包含一些常见的方法。
 ---
 
  TreeUtil中封装了`makeTree`方法，方便快速构造树形结构。同时还提供了过滤、查询、广度优先遍历、深度优先遍历、扁平化树形结构、查询路径等一系列常见的方法。
-
-## Table of contents
 
 ## 1.代码
 ``` java

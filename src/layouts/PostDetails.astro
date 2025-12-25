@@ -17,6 +17,7 @@ import IconChevronRight from "@/assets/icons/IconChevronRight.svg";
 import { SITE } from "@/config";
 import { Comments } from "@/components/Comment";
 import { PUBLIC_REMARK_URL } from "astro:env/client";
+import TableOfContents from "@/components/TableOfContents.astro";
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -39,7 +40,7 @@ const {
   hideEditPost,
 } = post.data;
 
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 let ogImageUrl: string | undefined;
 
@@ -69,7 +70,7 @@ const layoutProps = {
   canonicalURL,
   ogImage,
   scrollSmooth: true,
-  readingTime
+  readingTime,
 };
 
 /* ========== Prev/Next Posts ========== */
@@ -89,104 +90,117 @@ const nextPost =
 
 <Layout {...layoutProps}>
   <Header />
-  <BackButton />
-  <main
-    id="main-content"
-    class:list={[
-      "mx-auto w-full max-w-app px-4 pb-12",
-      { "mt-8": !SITE.showBackButton },
-    ]}
-    data-pagefind-body
+
+  <!-- Main Container: Centered, Flex Row for Columns -->
+  <div
+    class="mx-auto flex w-full max-w-screen-2xl justify-center gap-12 px-4 pb-12"
   >
-    <h1
-      transition:name={slugifyStr(title)}
-      class="inline-block text-2xl font-bold text-accent sm:text-3xl"
-    >
-      {title}
-    </h1>
-    <div class="my-2 flex items-center gap-2">
-      <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
-      <span
-        aria-hidden="true"
-        class:list={[
-          "max-sm:hidden",
-          { hidden: !SITE.editPost.enabled || hideEditPost },
-        ]}>|</span
-      >
-      <EditPost {hideEditPost} {post} class="max-sm:hidden" />
-    </div>
-    <div class="my-2 flex items-center gap-2">
-      <ReadingTime {readingTime} size="lg" />
-    </div>
-    <article
-      id="article"
-      class="app-prose mx-auto mt-8 max-w-app prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
-    >
-      <Content />
-    </article>
+    <!-- Left Spacer to balance TOC -->
+    <div class="hidden w-64 shrink-0 xl:block" aria-hidden="true"></div>
 
-    <hr class="my-8 border-dashed" />
+    <!-- Middle Column: Back Button + Main Content -->
+    <div class="flex w-full max-w-app min-w-0 flex-col">
+      <div class="mt-8"></div>
+      <BackButton />
 
-    <EditPost class="sm:hidden" {hideEditPost} {post} />
-
-    <ul class="mt-4 mb-8 sm:my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
-    </ul>
-
-    <BackToTopButton />
-
-    <ShareLinks />
-
-    <hr class="my-6 border-dashed" />
-
-    <!-- Previous/Next Post Buttons -->
-    <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
-      {
-        prevPost && (
-          <a
-            href={getPath(prevPost.id, prevPost.filePath)}
-            class="flex w-full gap-1 hover:opacity-75"
+      <main id="main-content" class="mt-8 w-full" data-pagefind-body>
+        <h1
+          transition:name={slugifyStr(title)}
+          class="inline-block text-2xl font-bold text-accent sm:text-3xl"
+        >
+          {title}
+        </h1>
+        <div class="my-2 flex items-center gap-2">
+          <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
+          <span
+            aria-hidden="true"
+            class:list={[
+              "max-sm:hidden",
+              { hidden: !SITE.editPost.enabled || hideEditPost },
+            ]}>|</span
           >
-            <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
-            <div>
-              <span>Previous Post</span>
-              <div class="text-sm text-accent/85">{prevPost.title}</div>
-            </div>
-          </a>
-        )
-      }
-      {
-        nextPost && (
-          <a
-            href={getPath(nextPost.id, nextPost.filePath)}
-            class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
-          >
-            <div>
-              <span>Next Post</span>
-              <div class="text-sm text-accent/85">{nextPost.title}</div>
-            </div>
-            <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
-          </a>
-        )
-      }
+          <EditPost {hideEditPost} {post} class="max-sm:hidden" />
+        </div>
+        <div class="my-2 flex items-center gap-2">
+          <ReadingTime {readingTime} size="lg" />
+        </div>
+        <article
+          id="article"
+          class="app-prose mt-8 max-w-none prose-pre:bg-(--shiki-light-bg) dark:prose-pre:bg-(--shiki-dark-bg)"
+        >
+          <Content />
+        </article>
+
+        <hr class="my-8 border-dashed" />
+
+        <EditPost class="sm:hidden" {hideEditPost} {post} />
+
+        <ul class="mt-4 mb-8 sm:my-8">
+          {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} />)}
+        </ul>
+
+        <BackToTopButton />
+
+        <ShareLinks />
+
+        <hr class="my-6 border-dashed" />
+
+        <!-- Previous/Next Post Buttons -->
+        <div data-pagefind-ignore class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {
+            prevPost && (
+              <a
+                href={getPath(prevPost.id, prevPost.filePath)}
+                class="flex w-full gap-1 hover:opacity-75"
+              >
+                <IconChevronLeft class="inline-block flex-none rtl:rotate-180" />
+                <div>
+                  <span>Previous Post</span>
+                  <div class="text-sm text-accent/85">{prevPost.title}</div>
+                </div>
+              </a>
+            )
+          }
+          {
+            nextPost && (
+              <a
+                href={getPath(nextPost.id, nextPost.filePath)}
+                class="flex w-full justify-end gap-1 text-end hover:opacity-75 sm:col-start-2"
+              >
+                <div>
+                  <span>Next Post</span>
+                  <div class="text-sm text-accent/85">{nextPost.title}</div>
+                </div>
+                <IconChevronRight class="inline-block flex-none rtl:rotate-180" />
+              </a>
+            )
+          }
+        </div>
+
+        {PUBLIC_REMARK_URL && <Comments client:only />}
+      </main>
     </div>
 
+    <!-- Right Column: Table of Contents Sidebar -->
     {
-      PUBLIC_REMARK_URL && <Comments client:only />
+      headings.length > 0 && (
+        <aside class="sticky top-20 hidden h-fit w-64 shrink-0 xl:block">
+          <TableOfContents headings={headings} />
+        </aside>
+      )
     }
-
-  </main>
-  <Footer />
+  </div>
 </Layout>
+<Footer />
 
 <script>
-  import mediumZoom from 'medium-zoom';
+  import mediumZoom from "medium-zoom";
 
   // 初始化：选择所有的 img 标签
   // 你可以指定特定的类名，或者排除特定的图片
-  mediumZoom('img', {
+  mediumZoom("img", {
     margin: 24,
-    background: '#000000',
+    background: "#000000",
     scrollOffset: 0,
   });
 </script>

@@ -1,7 +1,7 @@
 ---
 author: lavie
 pubDatetime: 2024-11-26T07:45:22Z
-modDatetime: 2025-10-14T02:54:59Z
+modDatetime: 2025-12-25T03:23:42Z
 title: 事务的隔离级别
 featured: false
 draft: false
@@ -12,8 +12,6 @@ description: Mysql并发事务导致的问题和事务的隔离级别
 ---
 
  这篇文章主要介绍Mysql并发事务导致的脏读、不可重复读、幻读问题，以及读未提交、读已提交、可重复读和可串行化四种不同隔离级别。
-
-## Table of contents
 
 ## 并发事务导致的问题
 

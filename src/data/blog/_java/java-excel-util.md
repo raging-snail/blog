@@ -1,7 +1,7 @@
 ---
 author: lavie
 pubDatetime: 2025-07-30T09:40:01Z
-modDatetime: 2025-11-14T02:50:58Z
+modDatetime: 2025-12-25T03:23:37Z
 title: Java中使用EasyExcel处理表格
 featured: false
 draft: false
@@ -12,8 +12,6 @@ description: Java中使用EasyExcel读取、导出表格，自定义表格样式
 ---
 
  这篇文章记录了一个表格的工具类，使用EasyExcel读取、导出表格，自定义表格样式。
-
-## Table of contents
 
 ## 1.使用EasyExcel读写表格
 

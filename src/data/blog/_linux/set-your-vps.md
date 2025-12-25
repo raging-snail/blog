@@ -1,7 +1,7 @@
 ---
 author: lavie
 pubDatetime: 2025-11-14T02:51:36Z
-modDatetime: 
+modDatetime: 2025-12-25T03:23:38Z
 title: 服务器设置
 featured: false
 draft: false
@@ -12,8 +12,6 @@ description: 一篇关于设置一台新服务器的文章。本教程涵盖了�
 ---
 
 这篇文章将引导您逐步完成必要的服务器配置，创建一个安全高效的服务器环境，涵盖内容：更新软件包、设置防火墙规则、使用 SSH 密钥认证等安全措施，以及启用 BBR 等性能优化的所有内容。
-
-## Table of contents
 
 ##  一、基础设置
 

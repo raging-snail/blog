@@ -1,7 +1,7 @@
 ---
 author: lavie
 pubDatetime: 2024-11-26T02:37:00
-modDatetime: 2025-10-29T07:03:34Z
+modDatetime: 2025-12-25T03:23:42Z
 title: Mysql 事务
 featured: false
 draft: false
@@ -12,8 +12,6 @@ description: Mysql事务的ACID四种特性以及实现原理。
 ---
 
  这篇文章主要介绍Mysql事务的四种特性：原子性、一致性、隔离性和持久性，以及这四种特性的实现原理。
-
-## Table of contents
 
 ## 1.事务的特性
 

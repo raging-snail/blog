@@ -1,7 +1,7 @@
 ---
 author: lavie
 pubDatetime: 2025-01-10T05:24:31Z
-modDatetime: 2025-02-25T06:43:38Z
+modDatetime: 2025-12-25T03:23:36Z
 title: Java中使用枚举缓存
 featured: true
 draft: false
@@ -12,8 +12,6 @@ description: 使用枚举缓存减少代码冗余，提高执行效率。
 ---
 
  枚举是一个系统中的基础部分，在项目中随处可见，其中大部分枚举类中都包含findByName、findByValue之类的用法，通过遍历枚举，去寻找与参数匹配的枚举值，这种做法导致大量冗余代码，并且当枚举内的实例数越多时性能越差。本文通过将枚举类注册到缓存中来消除这部分冗余代码，并且去掉缓存查询时的for循环。
-
-## Table of contents
 
 ##  1.原始写法
 ```java
