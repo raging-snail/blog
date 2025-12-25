@@ -13,8 +13,6 @@ description: Mysql的分布式事务中的2PC和3PC两种协议，以及不同�
 
  这篇文章主要介绍了Mysql分布式事务中的2PC和3PC两种协议，以及不同模式实现的分布式事务的原理、优缺点和执行过程。
 
-## Table of contents
-
 ## 2PC 和 3PC
 
 **两阶段提交协议**

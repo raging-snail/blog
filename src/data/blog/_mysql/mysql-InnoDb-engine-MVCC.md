@@ -13,8 +13,6 @@ description: InnoDB引擎如何实现MVCC
 
  Mysql使用InnoDb引擎时通过MVCC来实现数据的一致性和隔离性。这篇文章主要介绍了MVCC的原理，Read View结构和一致性算法。
 
-## Table of contents
-
 ## MVCC多版本并发控制 (Multi-Version Concurrency Control)
 
 MVCC 是一种并发控制机制，用于在多个并发事务同时读写数据库时保持数据的一致性和隔离性。它是通过在每个数据行上维护多个版本的数据来实现的。当一个事务要对数据库中的数据进行修改时，MVCC 会为该事务创建一个数据快照，而不是直接修改实际的数据行。

@@ -13,8 +13,6 @@ description: mysql Innodb引擎中锁的分类，以及行锁的加锁分析
 
  这篇文章按照锁的模式和粒度介绍了MySQL Innodb引擎中不同类型的锁、加锁的具体逻辑、锁的区间分析等内容。
 
-## Table of contents
-
 ## 简介
 
 ### 分类

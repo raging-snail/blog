@@ -13,8 +13,6 @@ description: Java中使用EasyExcel读取、导出表格，自定义表格样式
 
  这篇文章记录了一个表格的工具类，使用EasyExcel读取、导出表格，自定义表格样式。
 
-## Table of contents
-
 ## 1.使用EasyExcel读写表格
 
 ```java
