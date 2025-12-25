@@ -1,17 +1,17 @@
 ---
 author: lavie
 pubDatetime: 2025-07-30T09:40:01Z
-modDatetime: 2025-12-25T03:23:37Z
+modDatetime: 2025-11-14T02:50:58Z
 title: Java中使用EasyExcel处理表格
 featured: false
 draft: false
 private: false
 tags:
   - java
-description: Java中使用EasyExcel读取、导出表格，自定义表格样式。
+description: 全面掌握使用 EasyExcel 进行高效的表格读写操作，包括自定义样式、合并单元格及自适应列宽等高级功能实现。
 ---
 
- 这篇文章记录了一个表格的工具类，使用EasyExcel读取、导出表格，自定义表格样式。
+本文分享了一个功能完善的 EasyExcel 工具类，详细展示了如何实现表格的高效读写、自定义样式设置、单元格合并策略以及自适应列宽等高级特性。
 
 ## 1.使用EasyExcel读写表格
 

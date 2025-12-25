@@ -1,17 +1,17 @@
 ---
 author: lavie
 pubDatetime: 2025-10-14T02:54:59Z
-modDatetime: 2025-12-25T03:23:38Z
+modDatetime: 
 title: CentOS 磁盘数据迁移
 featured: false
 draft: false
 private: false
 tags:
   - linux
-description: 本文档记录从旧磁盘迁移到新磁盘的完整过程，包括挂载、数据迁移、替换挂载点、自动挂载配置等步骤。
+description: 实战指南：CentOS 系统磁盘数据无缝迁移教程，涵盖挂载新盘、数据同步、挂载点替换及自动挂载配置全流程。
 ---
 
- 本文档记录从旧磁盘迁移到新磁盘的完整过程，包括挂载、数据迁移、替换挂载点、自动挂载配置等步骤。
+本文将手把手演示如何在 CentOS 系统中进行磁盘数据的无缝迁移，从新磁盘的挂载与格式化，到使用 Rsync 进行高效数据同步，最后完成挂载点替换与自动挂载设置，确保业务平滑过渡。
 
 ## 一、挂载新磁盘
 

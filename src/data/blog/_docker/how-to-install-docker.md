@@ -1,7 +1,7 @@
 ---
 author: lavie
 pubDatetime: 2024-12-13T06:56:43Z
-modDatetime: 2025-12-25T03:23:36Z
+modDatetime: 
 title: 服务器安装docker
 featured: false
 draft: false
@@ -9,10 +9,12 @@ private: false
 tags:
   - linux 
   - docker
-description: 如何在Linux服务器上安装Docker和Docker Compose环境
+description: 详细的 Linux 服务器安装 Docker 和 Docker Compose 指南，包含 CentOS 和 Debian 系统的具体步骤及常见配置。
 ---
 
- Docker 是一个开源的应用容器引擎，基于Go语言并遵从 Apache2.0 协议开源。Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。这篇文章主要介绍如何在服务器上安装Docker和Docker Compose环境。
+本文详细介绍了 Docker 的基本概念，并提供了在 CentOS 和 Debian 系统上安装 Docker 引擎及 Docker Compose 的完整步骤，帮助开发者快速构建容器化环境。
+
+Docker 是一个开源的应用容器引擎，基于Go语言并遵从 Apache2.0 协议开源。Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）,更重要的是容器性能开销极低。
 
 ## centos安装教程
 

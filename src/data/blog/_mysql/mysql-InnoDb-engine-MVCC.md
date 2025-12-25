@@ -1,17 +1,17 @@
 ---
 author: lavie
 pubDatetime: 2024-11-27T05:14:05Z
-modDatetime: 2025-12-25T03:23:39Z
+modDatetime: 2025-11-14T02:50:58Z
 title: InnoDB引擎实现MVCC
 featured: true
 draft: false
 private: false
 tags:
   - Mysql
-description: InnoDB引擎如何实现MVCC
+description: 深度剖析 InnoDB 引擎的多版本并发控制 (MVCC) 机制，解读 ReadView 结构、隐藏字段及数据可见性算法。
 ---
 
- Mysql使用InnoDb引擎时通过MVCC来实现数据的一致性和隔离性。这篇文章主要介绍了MVCC的原理，Read View结构和一致性算法。
+本文将深入剖析 MySQL InnoDB 引擎如何通过多版本并发控制（MVCC）实现高效的读写并发，详细解读隐藏字段、Undo Log 以及 ReadView 在数据可见性判断中的核心作用。
 
 ## MVCC多版本并发控制 (Multi-Version Concurrency Control)
 

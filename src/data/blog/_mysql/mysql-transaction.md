@@ -1,17 +1,17 @@
 ---
 author: lavie
 pubDatetime: 2024-11-26T02:37:00
-modDatetime: 2025-12-25T03:23:42Z
+modDatetime: 2025-10-29T07:03:34Z
 title: Mysql 事务
 featured: false
 draft: false
 private: false
 tags:
   - Mysql
-description: Mysql事务的ACID四种特性以及实现原理。
+description: 彻底理解 MySQL 事务的 ACID 特性：原子性、一致性、隔离性与持久性的实现原理（Undo/Redo Log 与锁机制）。
 ---
 
- 这篇文章主要介绍Mysql事务的四种特性：原子性、一致性、隔离性和持久性，以及这四种特性的实现原理。
+本文将带您彻底理解 MySQL 事务的四大核心特性（ACID），并深入剖析其背后的实现原理，包括保证原子性的 Undo Log、保证持久性的 Redo Log 以及保证隔离性的锁机制。
 
 ## 1.事务的特性
 

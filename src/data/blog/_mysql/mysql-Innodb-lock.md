@@ -1,17 +1,17 @@
 ---
 author: lavie
 pubDatetime: 2025-02-20T09:19:40Z
-modDatetime: 2025-12-25T03:23:41Z
+modDatetime: 2025-11-14T02:51:00Z
 title: mysql Innodb引擎锁机制
 featured: true
 draft: false
 private: false
 tags:
   - mysql
-description: mysql Innodb引擎中锁的分类，以及行锁的加锁分析
+description: 全方位解析 MySQL InnoDB 锁机制：从表锁到行锁（记录锁、间隙锁、临键锁），深入分析加锁规则与冲突场景。
 ---
 
- 这篇文章按照锁的模式和粒度介绍了MySQL Innodb引擎中不同类型的锁、加锁的具体逻辑、锁的区间分析等内容。
+本文全方位解析了 MySQL InnoDB 引擎的锁机制，涵盖了共享锁与排他锁、表级锁与行级锁（如记录锁、间隙锁、临键锁）的分类，并通过具体案例深入分析了不同场景下的加锁规则与冲突判定。
 
 ## 简介
 

@@ -1,17 +1,17 @@
 ---
 author: lavie
 pubDatetime: 2025-11-14T02:51:36Z
-modDatetime: 2025-12-25T03:23:38Z
+modDatetime: 
 title: 服务器设置
 featured: false
 draft: false
 private: false
 tags:
   - linux
-description: 一篇关于设置一台新服务器的文章。本教程涵盖了必要的初始配置，包括更新软件包、设置防火墙、通过自定义端口和密钥认证来加固 SSH、启用 BBR 以提高网络性能，以及安装 Docker。
+description: 新服务器初始化安全配置全攻略：从软件包更新、防火墙设置、SSH 端口修改与密钥登录，到 BBR 网络加速及 Docker 环境搭建。
 ---
 
-这篇文章将引导您逐步完成必要的服务器配置，创建一个安全高效的服务器环境，涵盖内容：更新软件包、设置防火墙规则、使用 SSH 密钥认证等安全措施，以及启用 BBR 等性能优化的所有内容。
+本文提供了一份详尽的新服务器初始化指南，旨在帮助您快速构建一个安全、高效的运行环境，内容涵盖系统更新、防火墙加固、SSH 安全优化、BBR 性能加速以及 Docker 容器环境的快速部署。
 
 ##  一、基础设置
 

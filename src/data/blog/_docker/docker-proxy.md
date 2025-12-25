@@ -1,17 +1,17 @@
 ---
 author: lavie
 pubDatetime: 2025-01-10T09:23:04Z
-modDatetime: 2025-12-25T03:23:35Z
+modDatetime: 2025-02-25T06:43:35Z
 title: 搭建docker镜像加速
 featured: true
 draft: false
 private: false
 tags:
   - docker
-description: 如何使用国外服务器搭建自己的docker镜像加速
+description: 详解如何利用国外服务器和 Docker-Proxy 项目搭建私有 Docker 镜像加速服务，解决国内 Docker Hub 访问受限及镜像源失效的问题。
 ---
 
- 由于国内政策无法访问docker，网上的docker镜像又经常失效，所以使用[Docker-Proxy](https://github.com/dqzboy/Docker-Proxy)项目自行搭建docker镜像加速。
+本文将介绍在 Docker Hub 国内访问受限的背景下，如何通过购买国外服务器并部署 [Docker-Proxy](https://github.com/dqzboy/Docker-Proxy) 项目，快速搭建一个稳定可靠的私有 Docker 镜像加速服务。
 
 ## 1.安装dockerhub加速和ui
 > 注意： 你需要对哪个镜像仓库进行加速，就下载哪个配置。docker-compose.yaml文件默认是部署所有的国外镜像仓库的加速服务，同样也是你部署哪个就配置哪个，其余的删除掉即可！

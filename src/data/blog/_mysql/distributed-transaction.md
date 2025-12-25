@@ -1,17 +1,17 @@
 ---
 author: lavie
 pubDatetime: 2024-11-26T05:45:21Z
-modDatetime: 2025-12-25T03:23:39Z
+modDatetime: 2025-11-14T02:50:56Z
 title: 分布式事务
 featured: false
 draft: false
 private: false
 tags:
   - Mysql
-description: Mysql的分布式事务中的2PC和3PC两种协议，以及不同模式实现的分布式事务。
+description: 深入解析分布式事务的核心协议 2PC与3PC，并对比 AT、TCC、Saga、XA 四种常见模式的实现原理及优缺点。
 ---
 
- 这篇文章主要介绍了Mysql分布式事务中的2PC和3PC两种协议，以及不同模式实现的分布式事务的原理、优缺点和执行过程。
+本文将深入探讨 MySQL 分布式事务的核心协议（2PC 和 3PC）及其局限性，并详细解析 AT、TCC、Saga 和 XA 四种主流分布式事务模式的实现原理、适用场景与优缺点。
 
 ## 2PC 和 3PC
 

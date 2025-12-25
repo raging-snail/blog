@@ -1,16 +1,17 @@
 ---
 author: lavie
 pubDatetime: 2024-11-25T14:00:44
-modDatetime: 2025-12-25T03:23:41Z
+modDatetime: 2025-11-14T02:51:01Z
 title: Mysql Buffer Pool
 featured: false
 draft: false
 private: false
 tags:
   - Mysql
-description: Mysql中Buffer Pool的组成结构，以及不同组件的作用和Buffer Pool的运行过程。
+description: 详解 MySQL Buffer Pool 的内部架构：LRU List、Free List 与 Flush List 的协同工作机制及内存管理策略。
 ---
- Mysql中Buffer Pool主要由LRUList、FreeList和FlushList三个部分组成，这篇文章将详细介绍各个组件的构成和作用，以及Buffer Pool的运行过程。 
+
+本文将详细介绍 MySQL Buffer Pool 的核心组成部分——LRU List、Free List 和 Flush List 的结构与作用，并深入解析 Buffer Pool 在内存管理与数据缓存中的运行机制。
 
 ## 1.Buffer Pool
 
