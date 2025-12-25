@@ -25,8 +25,6 @@ Here are some rules/recommendations, tips & ticks for creating new posts in Astr
   </figcaption>
 </figure>
 
-## Table of contents
-
 ## Creating a Blog Post
 
 To write a new blog post, create a markdown file inside the `src/data/blog/` directory.
