@@ -54,9 +54,9 @@ async function main() {
 
   for (const file of files) {
     const content = await fs.readFile(file, 'utf-8');
-    // 先去掉 HTML 标签
+    // 先去掉 HTML 标签 (只匹配以字母开头的标签，避免 c<10 这种被误删)
     let cleanContent = content
-      .replace(/<[^>]+>/g, '')
+      .replace(/<\/?\s*[a-zA-Z][^>]*>/g, '')
       .replace(/https?:\/\/[^\s]+/g, '');
 
     // 解码 HTML 实体
