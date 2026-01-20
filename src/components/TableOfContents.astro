@@ -75,22 +75,22 @@ function buildToc(headings: MarkdownHeading[]) {
     display: none;
   }
 
-  .toc ul {
+  .toc :global(ul) {
     list-style-type: none;
     padding-left: 0;
     overflow-wrap: break-word; /* Ensure long words/text wrap */
   }
 
   /* Indent nested lists */
-  .toc ul ul {
+  .toc :global(ul ul) {
     padding-left: 1rem;
   }
 
-  .toc a {
+  .toc :global(a) {
     display: block;
     text-decoration: none;
     color: inherit;
-    padding: 0.35rem 1rem 0.35rem 1.25rem;
+    padding: 0.35rem 0.35rem 0.35rem 0.35rem;
     font-size: 0.9rem;
     line-height: 1.4;
     transition: all 0.2s ease-in-out;
@@ -98,11 +98,11 @@ function buildToc(headings: MarkdownHeading[]) {
     border-radius: 0.25rem;
   }
 
-  .toc a:hover {
+  .toc :global(a:hover) {
     opacity: 0.8;
   }
 
-  .toc a.active {
+  .toc :global(a.active) {
     opacity: 1;
     color: var(--color-accent);
     font-weight: 500;
@@ -110,6 +110,7 @@ function buildToc(headings: MarkdownHeading[]) {
 
   .toc-marker {
     transition: stroke-dasharray 0.3s ease;
+    stroke: var(--color-accent);
   }
 </style>
 
@@ -236,6 +237,21 @@ function buildToc(headings: MarkdownHeading[]) {
         }
       });
 
+      // Highlight all links within the range of the progress line
+      const links = Array.from(document.querySelectorAll("nav.toc a"));
+      const activeIndices = links
+        .map((link, index) => (link.classList.contains("active") ? index : -1))
+        .filter(index => index !== -1);
+
+      if (activeIndices.length > 0) {
+        const firstActive = activeIndices[0];
+        const lastActive = activeIndices[activeIndices.length - 1];
+
+        for (let i = firstActive; i <= lastActive; i++) {
+          links[i].classList.add("active");
+        }
+      }
+
       updatePath();
     }
 
@@ -262,8 +278,8 @@ function buildToc(headings: MarkdownHeading[]) {
       let lastY = 0;
 
       links.forEach((link, i) => {
-        // Shift the line 10px to the left of the link's box for visual separation
-        const x = link.offsetLeft - 10;
+        // Shift the line 5px to the left of the link's box for visual separation
+        const x = link.offsetLeft - 5;
         const y = link.offsetTop;
         const height = link.offsetHeight;
 
