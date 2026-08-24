@@ -10,7 +10,9 @@ interface Frontmatter {
 
 export const getReadingTime = async () => {
   // Get all posts using glob. This is to get the updated frontmatter
-  const globPosts = import.meta.glob<Frontmatter>("../data/blog/**/*.{md,mdx}");
+  const globPosts = import.meta.glob<Frontmatter>(
+    "../content/posts/**/*.{md,mdx}"
+  );
 
   // Then, set those frontmatter value in a JS Map with key value pair
   const mapFrontmatter = new Map();
@@ -28,7 +30,7 @@ export const getReadingTime = async () => {
   return mapFrontmatter;
 };
 
-const getPostsWithRT = async (posts: CollectionEntry<"blog">[]) => {
+const getPostsWithRT = async (posts: CollectionEntry<"posts">[]) => {
   const mapFrontmatter = await getReadingTime();
   return posts.map(post => {
     post.data.readingTime = mapFrontmatter.get(slugifyStr(post.data.title));

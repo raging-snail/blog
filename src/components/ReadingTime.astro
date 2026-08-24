@@ -1,5 +1,4 @@
 ---
-import { SITE } from "@/config";
 
 export interface Props {
   class?: string;
@@ -11,8 +10,7 @@ const { readingTime, class: className = "", size = "sm" } = Astro.props;
 ---
 
 {
-  SITE.showBackButton && (
-    <div class:list={["flex items-center gap-x-2 opacity-80", className]}>
+  <div class:list={["flex items-center gap-x-2 opacity-80", className]}>
       <svg
         viewBox="0 0 1024 1024"
         xmlns="http://www.w3.org/2000/svg"
@@ -44,5 +42,4 @@ const { readingTime, class: className = "", size = "sm" } = Astro.props;
         <span class="mr-1">{readingTime}</span>
       </span>
     </div>
-  )
 }

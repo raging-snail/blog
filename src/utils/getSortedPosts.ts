@@ -1,8 +1,15 @@
 import type { CollectionEntry } from "astro:content";
-import postFilter from "./postFilter";
+import { postFilter } from "./postFilter";
 import getPostsWithRT from "./getPostsWithRT";
 
-const getSortedPosts = async (posts: CollectionEntry<"blog">[]) => {
+/**
+ * Returns posts that are eligible to be shown to users, sorted by "last updated"
+ * descending (uses `modDatetime` when present, otherwise `pubDatetime`).
+ * Attaches reading time (via remarkReadingTime frontmatter) before filtering.
+ *
+ * Note: filtering respects drafts and scheduled posts via `postFilter()`.
+ */
+export async function getSortedPosts(posts: CollectionEntry<"posts">[]) {
   const postsWithRT = await getPostsWithRT(posts);
   return postsWithRT
     .filter(postFilter)
@@ -15,6 +22,4 @@ const getSortedPosts = async (posts: CollectionEntry<"blog">[]) => {
           new Date(a.data.modDatetime ?? a.data.pubDatetime).getTime() / 1000
         )
     );
-};
-
-export default getSortedPosts;
+}

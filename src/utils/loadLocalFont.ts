@@ -47,3 +47,22 @@ async function loadLocalFonts(): Promise<
 }
 
 export default loadLocalFonts;
+/** 供 satori OG 图片生成使用的本地字体（替代 astro fonts API） */
+export async function loadOgFonts() {
+  const regular = readFileSync("public/fonts/MapleMono-NF-CN-Regular.ttf");
+  const bold = readFileSync("public/fonts/MapleMono-NF-CN-Bold.ttf");
+  return [
+    {
+      name: "MapleMono",
+      data: new Uint8Array(regular).buffer,
+      weight: 400 as const,
+      style: "normal" as const,
+    },
+    {
+      name: "MapleMono",
+      data: new Uint8Array(bold).buffer,
+      weight: 700 as const,
+      style: "normal" as const,
+    },
+  ];
+}

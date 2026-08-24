@@ -1,27 +1,53 @@
-import { defineConfig, envField } from "astro/config";
+import {
+  defineConfig,
+  envField,
+  svgoOptimizer,
+} from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
+import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
-import { remarkReadingTime } from './remark-reading-time.mjs';
+import react from "@astrojs/react";
+import { unified } from "@astrojs/markdown-remark";
+import remarkToc from "remark-toc";
+import remarkCollapse from "remark-collapse";
+import rehypeCallouts from "rehype-callouts";
+import { remarkReadingTime } from "./remark-reading-time.mjs";
 import {
   transformerNotationDiff,
   transformerNotationHighlight,
   transformerNotationWordHighlight,
 } from "@shikijs/transformers";
 import { transformerFileName } from "./src/utils/transformers/fileName";
-import { SITE } from "./src/config";
-
-import react from "@astrojs/react";
+import config from "./astro-paper.config";
 
 // https://astro.build/config
 export default defineConfig({
-  site: SITE.website,
-  integrations: [sitemap({
-    filter: page => SITE.showArchives || !page.endsWith("/archives"),
-  }), react()],
+  site: config.site.url,
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: page =>
+        config.features?.showArchives !== false || !page.endsWith("/archives/"),
+    }),
+    react(),
+  ],
+  i18n: {
+    locales: [config.site.lang ?? "en"],
+    defaultLocale: config.site.lang ?? "en",
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   markdown: {
-    remarkPlugins: [remarkReadingTime],
+    processor: unified({
+      remarkPlugins: [
+        remarkReadingTime,
+        remarkToc,
+        [remarkCollapse, { test: "Table of contents" }],
+      ],
+      rehypePlugins: [rehypeCallouts],
+    }),
     shikiConfig: {
-      // For more themes, visit https://shiki.style/themes
       themes: { light: "min-light", dark: "night-owl" },
       defaultColor: false,
       wrap: false,
@@ -34,18 +60,7 @@ export default defineConfig({
     },
   },
   vite: {
-    // eslint-disable-next-line
-    // @ts-ignore
-    // This will be fixed in Astro 6 with Vite 7 support
-    // See: https://github.com/withastro/astro/issues/14030
     plugins: [tailwindcss()],
-    optimizeDeps: {
-      exclude: ["@resvg/resvg-js"],
-    },
-  },
-  image: {
-    responsiveStyles: true,
-    layout: "constrained",
   },
   env: {
     schema: {
@@ -67,6 +82,6 @@ export default defineConfig({
     },
   },
   experimental: {
-    preserveScriptOrder: true,
+    svgOptimizer: svgoOptimizer(),
   },
 });
